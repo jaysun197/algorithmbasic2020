@@ -129,6 +129,7 @@ public class Code02_CardsInLine {
 		* 填对角线技巧
 		* 枚举每个对角线开始的位置，因为row每次开始都是0不用枚举，column是1~n-1，遍历一下
 		* 拿到开始位置后，通过row++,column++遍历完该条对角线
+		* 这里填充的方式与对角线平行的方式，斜着一直填到右上角
 		* */
 		for (int startCol = 1; startCol < N; startCol++) {
 			/*对角线开始位置[0][j]*/

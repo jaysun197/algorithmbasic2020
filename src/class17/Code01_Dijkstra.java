@@ -8,6 +8,9 @@ import java.util.Map.Entry;
  * 迪克斯特拉算法（有向图，无负权重，可以有环）
  * 给定一个出发点x，要求生成一张表，展示x到所有其他点的最小距离（x到不来的点，不用在这张表中，距离认为是正无穷）
  * 思路：
+ * 因为每一条边的权值都不同，所以x到某个点的距离，有可能存在通过某个权值小的点跳转一下后距离变得更短
+ * 所以每一次都是找到距离最近的点，作为跳转点。同时该跳转点也确定为该点到x的最短距离
+ * 流程：
  * 准备一个map，记录所有的点到x的距离，准备一个set，记录已经结算过的点
  * 先把x放入map中距离是0
  * map中选出最小距离的点cur，距离为l
@@ -16,6 +19,9 @@ import java.util.Map.Entry;
  *
  * 优化：map中选出最小距离的点，且需要排除selectedNodes。该方法可以通过加强堆达到O(logN)
  * 加强堆使用方式：堆中弹出当前最小距离，这时更新堆里该点周边的点的最小距离，且需要自动调整堆结构
+ *
+ * 拓展阅读：
+ * 	该方法是p算法的改进版，p算法是每次寻找并解锁最小的边，该方法是每次寻找最短距离的点，并更新邻居各点的最短距离
  */
 // no negative weight
 public class Code01_Dijkstra {
@@ -177,6 +183,7 @@ public class Code01_Dijkstra {
 			int distance = record.distance;
 			/*收集之前把该点周边的点加进去，或者重新计算一下最小距离*/
 			for (Edge edge : cur.edges) {
+				/*这里先把distance加进去，addOrUpdateOrIgnore方法里还会再判断是否采用该distance作为跳转点*/
 				nodeHeap.addOrUpdateOrIgnore(edge.to, edge.weight + distance);
 			}
 			result.put(cur, distance);

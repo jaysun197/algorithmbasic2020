@@ -4,11 +4,13 @@ import java.util.ArrayList;
 
 /**
  * 实现一个类似数组的结构，要求以下复杂度O(logN)
- * add(index,v)：
+ * add(index,v)： add后，原index位置依次順移
  * remove(index,v)：
  * get(index)
  * 思路：现有数组或者链表无法达到O(logN)，想要O(logN)只能用有序表
  * 元素如何比较？元素可以通过index的值来比较
+ *
+ * 代码实现注释参考class37.Code01_CountofRangeSum
  */
 public class Code03_AddRemoveGetIndexGreat {
 
